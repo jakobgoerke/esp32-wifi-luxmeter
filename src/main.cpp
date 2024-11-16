@@ -7,6 +7,7 @@
 #include <ArduinoJson.h>
 
 Adafruit_TSL2591 tsl(2591);
+AsyncWebServer server(80);
 
 static const char* ssid = ENV_WIFI_NAME;
 static const char* password = ENV_WIFI_PASS;
@@ -49,8 +50,6 @@ float getSensorData() {
 }
 
 void setupApi() {
-  AsyncWebServer server(80);
-
   server.on("/api/sensor", HTTP_GET, [](AsyncWebServerRequest *request) {
     AsyncJsonResponse * response = new AsyncJsonResponse();
     JsonObject root = response->getRoot();
